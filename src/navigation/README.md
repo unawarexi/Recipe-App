@@ -9,6 +9,13 @@ There are several navigation libraries available for React Native, each with its
 
 2. **Navigation Stack**: Navigation stack manages the order of screens in your application. When you navigate to a new screen, it gets added to the navigation stack, and when you go back, screens are removed from the stack.
 
+#### - 2i. the stack navigator -- offers more flexibility and customization but more slower
+#### - 2ii. native stack navigator -- levarages native nav..for ios and android thus faster
+
+```javascript
+  npm install @react-navigation/native-stack
+ ```
+
 3. **Navigation Options**: Navigation options allow you to customize the appearance and behavior of each screen in the navigation stack. This includes options like screen title, header style, and gestures.
 
 4. **Navigator**: Navigator is a component that manages the navigation stack and provides methods for navigating between screens. Different navigation libraries offer different types of navigators, such as Stack Navigator, Tab Navigator, Drawer Navigator, etc.
