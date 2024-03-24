@@ -1,5 +1,9 @@
-import { AppRegistry } from 'react-native';
 import NavigationIndex from './src/navigation/NavigationIndex';
 
-// Register the component
-AppRegistry.registerComponent('recipe', () => NavigationIndex);
+export default function App() {
+  return (
+    <NavigationIndex />
+  );
+}
+
+
