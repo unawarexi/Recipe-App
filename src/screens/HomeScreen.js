@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Image, Text, View, ScrollView, TextInput } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Avatar } from "../../assets/Image";
@@ -10,8 +10,33 @@ import {
 import { BellIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import Categories from "../components/Categories";
 
+import axios from "axios";
+
 const HomeScreen = () => {
   const [activeCategory, setActiveCategory] = useState("")
+  const [categories, setCategories] = useState([]);
+
+  // Fetch categories data when component mounts
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  // Function to fetch categories data
+  const getCategories = async () => {
+    try {
+      // Fetch data from API
+      const response = await axios.get("https://themealdb.com/api/json/v1/1/categories.php");
+
+      // Check if response data is valid and update state accordingly
+      if (response && response.data && response.data.categories) {
+        setCategories(response.data.categories);
+      } else {
+        console.log("Error: Invalid response data");
+      }
+    } catch (error) {
+      console.log("Error: ", error.message);
+    }
+  };
 
   return (
     <View className="flex-1 bg-white">
@@ -62,14 +87,14 @@ const HomeScreen = () => {
           />
 
           <View className="bg-white rounded-full p-3">
-           <MagnifyingGlassIcon size={hp(2.5)} strokeWidth={3} color={"gray"}/>
+           <MagnifyingGlassIcon size={hp(2.5)} strokeWidth={3} color={"gray"} />
           </View>
         </View>
 
         {/*------------------ {categories} ---------------- */}
 
         <View>
-        <Categories activeCategory = {activeCategory} setActiveCategory={setActiveCategory} />
+        <Categories categories = {categories} activeCategory = {activeCategory} setActiveCategory={setActiveCategory} />
         </View>
       </ScrollView>
     </View>
