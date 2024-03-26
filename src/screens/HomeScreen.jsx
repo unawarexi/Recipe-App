@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Image, Text, View, ScrollView, TextInput } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Avatar } from "../../assets/Image";
@@ -8,12 +8,13 @@ import {
 } from "react-native-responsive-screen";
 
 import { BellIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
-import Categories from "../components/Categories";
+
+import { Categories, Recipes } from "../components/ExportComponents";
 
 import axios from "axios";
 
 const HomeScreen = () => {
-  const [activeCategory, setActiveCategory] = useState("")
+  const [activeCategory, setActiveCategory] = useState("");
   const [categories, setCategories] = useState([]);
 
   // Fetch categories data when component mounts
@@ -25,7 +26,9 @@ const HomeScreen = () => {
   const getCategories = async () => {
     try {
       // Fetch data from API
-      const response = await axios.get("https://themealdb.com/api/json/v1/1/categories.php");
+      const response = await axios.get(
+        "https://themealdb.com/api/json/v1/1/categories.php"
+      );
 
       // Check if response data is valid and update state accordingly
       if (response && response.data && response.data.categories) {
@@ -87,14 +90,30 @@ const HomeScreen = () => {
           />
 
           <View className="bg-white rounded-full p-3">
-           <MagnifyingGlassIcon size={hp(2.5)} strokeWidth={3} color={"gray"} />
+            <MagnifyingGlassIcon
+              size={hp(2.5)}
+              strokeWidth={3}
+              color={"gray"}
+            />
           </View>
         </View>
 
         {/*------------------ {categories} ---------------- */}
 
         <View>
-        <Categories categories = {categories} activeCategory = {activeCategory} setActiveCategory={setActiveCategory} />
+          {categories.length > 0 && (
+            <Categories
+              categories={categories}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+            />
+          )}
+        </View>
+
+        {/*------------------ {Recipes} ---------------- */}
+
+        <View>
+          <Recipes />
         </View>
       </ScrollView>
     </View>
