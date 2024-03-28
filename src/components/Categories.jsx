@@ -9,7 +9,7 @@ import {
 
 import Animated, { FadeIn, FadeInDown, FadeOut } from 'react-native-reanimated';
 
-export default function Categories({ activeCategory, setActiveCategory, categories }) {
+export default function Categories({ activeCategory,  categories, selectCategory }) {
   return (
     <Animated.View entering={FadeInDown.duration(500).springify()}>
       <ScrollView
@@ -26,7 +26,9 @@ export default function Categories({ activeCategory, setActiveCategory, categori
             <TouchableOpacity
               key={index}
               className="flex items-center space-y-1"
-              onPress={() => setActiveCategory(items.strCategory)}
+              onPress={() => {
+                selectCategory(items.strCategory)
+              }}
             >
               <View className={`rounded-full p-[6px]  ${activeButtonClass}`}>
                 <Image
