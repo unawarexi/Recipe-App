@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import { Image, Text, View, ScrollView, TextInput } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Avatar } from "../../assets/Image";
@@ -9,26 +9,30 @@ import {
 
 import { BellIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
 
-import { Categories, Recipes } from "../components/ExportComponents";
+import {Categories, Recipes} from "../components/ExportComponents"
 
 import axios from "axios";
 
+
+//--------------------------
+
 const HomeScreen = () => {
-  const [activeCategory, setActiveCategory] = useState("");
+  const [activeCategory, setActiveCategory] = useState("")
   const [categories, setCategories] = useState([]);
+  const [meals, setMeals] = useState([]);
+ 
 
   // Fetch categories data when component mounts
   useEffect(() => {
     getCategories();
+    getRecipes();
   }, []);
 
   // Function to fetch categories data
   const getCategories = async () => {
     try {
       // Fetch data from API
-      const response = await axios.get(
-        "https://themealdb.com/api/json/v1/1/categories.php"
-      );
+      const response = await axios.get("https://themealdb.com/api/json/v1/1/categories.php");
 
       // Check if response data is valid and update state accordingly
       if (response && response.data && response.data.categories) {
@@ -40,6 +44,29 @@ const HomeScreen = () => {
       console.log("Error: ", error.message);
     }
   };
+
+  // Function to fetch categories data
+  const getRecipes = async (category="Beef") => {
+    try {
+      // Fetch data from API
+      const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+
+      // Check if response data is valid and update state accordingly
+      if (response && response.data && response.data.meals) {
+        setMeals(response.data.meals);
+      } else {
+        console.log("Error: Invalid response data");
+      }
+    } catch (error) {
+      console.log("Error: ", error.message);
+    }
+  };
+
+const selectCategory = (category) => {
+     setActiveCategory(category)
+     getRecipes(category)
+     setMeals([])
+}
 
   return (
     <View className="flex-1 bg-white">
@@ -90,31 +117,21 @@ const HomeScreen = () => {
           />
 
           <View className="bg-white rounded-full p-3">
-            <MagnifyingGlassIcon
-              size={hp(2.5)}
-              strokeWidth={3}
-              color={"gray"}
-            />
+           <MagnifyingGlassIcon size={hp(2.5)} strokeWidth={3} color={"gray"} />
           </View>
         </View>
 
         {/*------------------ {categories} ---------------- */}
 
         <View>
-          {categories.length > 0 && (
-            <Categories
-              categories={categories}
-              activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
-            />
-          )}
+       {categories.length > 0 &&  <Categories categories = {categories} activeCategory = {activeCategory} selectCategory = {selectCategory} /> }
         </View>
 
-        {/*------------------ {Recipes} ---------------- */}
+          {/*------------------ {Recipes} ---------------- */}
 
-        <View>
-          <Recipes />
-        </View>
+          <View>
+            <Recipes meals = {meals} categories = {categories} />
+          </View>
       </ScrollView>
     </View>
   );
