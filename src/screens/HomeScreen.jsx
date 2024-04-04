@@ -45,7 +45,7 @@ const HomeScreen = () => {
     }
   };
 
-  // Function to fetch categories data
+  // Function to fetch recipes data
   const getRecipes = async (category="Beef") => {
     try {
       // Fetch data from API

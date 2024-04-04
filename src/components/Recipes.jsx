@@ -1,26 +1,19 @@
-import React from "react";
-import {
-  Image,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Pressable,
-} from "react-native";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import React, {useMemo} from "react";
+import { Image, Text, View, Pressable,} from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp,} from "react-native-responsive-screen";
 
 
 import MasonryList from "@react-native-seoul/masonry-list";
 import { mealData } from "../constants/DummyIndex";
 
-import Animated, { FadeIn, FadeInDown, FadeOut } from 'react-native-reanimated';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import MainLoader from "./loader/MainLoader"
 import CacheImage from "../helpers/CacheImage";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Recipes({ categories, meals }) {
+  const Navigation  =  useNavigation();
+
   return (
     <View className="mx-4 space-y-3">
       <Text
@@ -29,6 +22,8 @@ export default function Recipes({ categories, meals }) {
       >
         Recipes
       </Text>
+
+      {/* {--------------------- MANSORY LAYOUT !FLATLISTS ------------} */}
       <View>
        {
         categories.length === 0 || meals.length === 0 ? (
@@ -39,11 +34,8 @@ export default function Recipes({ categories, meals }) {
             keyExtractor={(item) => item.idMeal}
             numColumns={2}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => <RecipeCard item={item} index={index} />}
-            // refreshing={isLoadingNext}
-            // onRefresh={() => refetch({ first: ITEM_CNT })}
+            renderItem={({ item, index }) => <RecipeCard item={item} index={index} Navigation = {Navigation} />}
             onEndReachedThreshold={0.1}
-            // onEndReached={() => loadNext(ITEM_CNT)}
           />
         )  
        }
@@ -52,9 +44,10 @@ export default function Recipes({ categories, meals }) {
   );
 }
 
-const RecipeCard = ({ item, index }) => {
+const RecipeCard = ({ item, index, Navigation }) => {
   let isEven = index % 2 === 0;
-  let isNotEven = index % 3 === 0;
+  const isNotEven = useMemo(() => Math.random() < 0.5, []) // making sure the images are not rendered equally
+  
   return (
     <Animated.View entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
       <Pressable
@@ -64,6 +57,7 @@ const RecipeCard = ({ item, index }) => {
           paddingRight: isEven ? 8 : 0,
         }}
         className="flex justify-center mb-4 space-y-1"
+        onPress={() => Navigation.navigate('RecipeDetail', {...item})}
       >
         {/* <Image
           source={{ uri: item.strMealThumb }}

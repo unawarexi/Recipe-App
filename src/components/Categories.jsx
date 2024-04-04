@@ -8,6 +8,7 @@ import {
 } from "react-native-responsive-screen";
 
 import Animated, { FadeIn, FadeInDown, FadeOut } from 'react-native-reanimated';
+import CacheImage from "../helpers/CacheImage";
 
 export default function Categories({ activeCategory,  categories, selectCategory }) {
   return (
@@ -36,6 +37,11 @@ export default function Categories({ activeCategory,  categories, selectCategory
                   style={{ width: hp(6), height: hp(6) }}
                   className="rounded-full"
                 />
+
+                {/* <CacheImage  
+                 uri = {items.strCategoryThumb }
+                style={{ width: hp(6), height: hp(6) }}
+                className="rounded-full"  /> */}
               </View>
 
               <Text className="text-neutral-600" style={{ fontSize: hp(1.6) }}>

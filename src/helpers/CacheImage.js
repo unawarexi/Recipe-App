@@ -47,12 +47,10 @@ const CacheImage = ({ uri, ...props }) => {
     // lowercase
     const cacheImage = async (uri, data) => {
         try {
-            await AsyncStorage.setItem(uri, data);
+            AsyncStorage.clear()
+            const imageSize = await AsyncStorage.setItem(uri, data);
 
-            // -------------- Check cache size
-            const cacheSize = await AsyncStorage.getSize();
-
-            if (cacheSize > MAX_CACHE_SIZE) {
+            if (imageSize > MAX_CACHE_SIZE) {
                 //------------------  Implement cache eviction strategy (e.g., remove oldest items)
                 const allKeys = await AsyncStorage.getAllKeys();
                 const oldestKey = allKeys[0]; // -------------- For simplicity, just remove the first key
