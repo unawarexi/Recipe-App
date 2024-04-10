@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { HomeScreen, RecipeDetailScreen, WelcomeScreen } from "../screens/ExportScreens";
+import { HomeScreen, RecipeDetailScreen, SearchScreen, WelcomeScreen } from "../screens/ExportScreens";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +18,7 @@ const NavigationIndex = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
