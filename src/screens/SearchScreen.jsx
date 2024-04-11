@@ -10,12 +10,22 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp,} from "react-nati
 import SearchLoader from "../components/loader/SearchLoader"
 
 import {API_FETCH_SEARCH_RESULTS } from "@env"
+<<<<<<< HEAD
 
 
 // SearchScreen.jsx
 const SearchScreen = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+=======
+import Recipes from '../components/Recipes';
+import CacheImage from '../helpers/CacheImage';
+
+// SearchScreen.jsx
+const SearchScreen = ({searchResults, setSearchResults}) => {
+    const [searchQuery, setSearchQuery] = useState('');
+   
+>>>>>>> b90321d7cf7d66e58315c53d2874c5fbe483cebe
     const [isLoading, setIsLoading] = useState(false);
   
     const fetchSearchResults = async () => {
@@ -68,13 +78,21 @@ const SearchScreen = () => {
             renderItem={renderSearchItem}
             keyExtractor={(item) => item.idMeal}
             style={{ fontSize: hp(1.7) }}
+<<<<<<< HEAD
+=======
+          
+>>>>>>> b90321d7cf7d66e58315c53d2874c5fbe483cebe
             ListEmptyComponent={<Text>No search results found</Text>}
           />
         )}
        
       </View>
     );
+<<<<<<< HEAD
 };
+=======
+  };
+>>>>>>> b90321d7cf7d66e58315c53d2874c5fbe483cebe
   
   export default SearchScreen;
   

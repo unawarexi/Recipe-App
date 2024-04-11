@@ -77,7 +77,11 @@ return (
   <View className="flex-1 bg-white">
     <StatusBar style="dark" />
 
+<<<<<<< HEAD
     <View
+=======
+    <ScrollView
+>>>>>>> b90321d7cf7d66e58315c53d2874c5fbe483cebe
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 50 }}
       className=" space-y-6 py-14"
@@ -126,7 +130,11 @@ return (
         </View>
       </View> */}
       <View>
+<<<<<<< HEAD
         <SearchScreen  />
+=======
+        <SearchScreen searchResults = {searchResults} setSearchResults = {setSearchResults}/>
+>>>>>>> b90321d7cf7d66e58315c53d2874c5fbe483cebe
       </View>
 
       {/*------------------ {categories} ---------------- */}
@@ -136,12 +144,20 @@ return (
 
       {/*------------------ {Recipes} ---------------- */}
       <View>
+<<<<<<< HEAD
          {meals.length > 0 && <Recipes meals={meals} categories={categories}  />}
+=======
+         {meals.length > 0 && searchResults.length > 0 && <Recipes meals={meals} categories={categories} searchResults={searchResults} />}
+>>>>>>> b90321d7cf7d66e58315c53d2874c5fbe483cebe
       </View>
 
 
      
+<<<<<<< HEAD
     </View>
+=======
+    </ScrollView>
+>>>>>>> b90321d7cf7d66e58315c53d2874c5fbe483cebe
   </View>
 )};
 
