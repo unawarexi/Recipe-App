@@ -1,3 +1,4 @@
+
 import React, {useMemo} from "react";
 import { Image, Text, View, Pressable,} from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp,} from "react-native-responsive-screen";
@@ -11,7 +12,7 @@ import MainLoader from "./loader/MainLoader"
 import CacheImage from "../helpers/CacheImage";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Recipes({ categories, meals }) {
+export default function Recipes({ categories, meals, searchResults }) {
   const Navigation  =  useNavigation();
 
   return (
@@ -25,20 +26,30 @@ export default function Recipes({ categories, meals }) {
 
       {/* {--------------------- MANSORY LAYOUT !FLATLISTS ------------} */}
       <View>
-       {
-        categories.length === 0 || meals.length === 0 ? (
-            <MainLoader />
+      {categories.length === 0 || meals.length === 0 ? (
+          <MainLoader />
         ) : (
+          <>
+            {searchResults && searchResults.length > 0 && (
+              <MasonryList
+                data={searchResults}
+                keyExtractor={(item) => item.idMeal}
+                numColumns={2}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item, index }) => <RecipeCard item={item} index={index} Navigation={Navigation} />}
+                onEndReachedThreshold={0.1}
+              />
+            )}
             <MasonryList
-            data={meals}
-            keyExtractor={(item) => item.idMeal}
-            numColumns={2}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => <RecipeCard item={item} index={index} Navigation = {Navigation} />}
-            onEndReachedThreshold={0.1}
-          />
-        )  
-       }
+              data={meals}
+              keyExtractor={(item) => item.idMeal}
+              numColumns={2}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item, index }) => <RecipeCard item={item} index={index} Navigation={Navigation} />}
+              onEndReachedThreshold={0.1}
+            />
+          </>
+        )}
       </View>
     </View>
   );

@@ -22,6 +22,8 @@ import axios from 'axios';
 import SubLoader from '../components/loader/SubLoader';
 import YouTubePlayer from 'react-native-youtube-iframe';
 
+import {API_GET_RECIPES_DETAILS} from "@env";
+
 
  
 
@@ -41,7 +43,8 @@ const RecipeDetailScreen = (props) => {
   const getRecipeDetails = async (id) => {
     try {
       // Fetch data from API
-      const response = await axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const getDetailsUrl = `${API_GET_RECIPES_DETAILS}${id}` // dont include space for concat
+      const response = await axios.get(getDetailsUrl);
      
       // Check if response data is valid and update state accordingly
       if (response && response.data && response.data.meals) {
