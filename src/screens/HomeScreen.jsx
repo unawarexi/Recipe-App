@@ -77,7 +77,7 @@ return (
   <View className="flex-1 bg-white">
     <StatusBar style="dark" />
 
-    <ScrollView
+    <View
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 50 }}
       className=" space-y-6 py-14"
@@ -126,7 +126,7 @@ return (
         </View>
       </View> */}
       <View>
-        <SearchScreen searchResults = {searchResults} setSearchResults = {setSearchResults}/>
+        <SearchScreen  />
       </View>
 
       {/*------------------ {categories} ---------------- */}
@@ -136,12 +136,12 @@ return (
 
       {/*------------------ {Recipes} ---------------- */}
       <View>
-         {meals.length > 0 && searchResults.length > 0 && <Recipes meals={meals} categories={categories} searchResults={searchResults} />}
+         {meals.length > 0 && <Recipes meals={meals} categories={categories}  />}
       </View>
 
 
      
-    </ScrollView>
+    </View>
   </View>
 )};
 
